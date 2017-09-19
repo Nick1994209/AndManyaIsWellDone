@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/padding"
+    android:background="@drawable/bg">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@android:color/background_light">
+
+        <EditText
+            android:id="@+id/enter_quality"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/word"
+            android:background="@android:color/background_light"
+            android:paddingRight="@dimen/padding"
+            android:textSize="@dimen/text"
+            />
+
+        <EditText
+            android:id="@+id/enter_score"
+            android:layout_width="97dp"
+            android:layout_height="wrap_content"
+            android:background="@android:color/background_light"
+            android:hint="@string/count_balls"
+            android:inputType="number"
+            android:textSize="@dimen/text" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:paddingTop="@dimen/smallPadding"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+    <EditText
+        android:background="@android:color/background_light"
+        android:id="@+id/enter_description"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/submit_add_word"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingRight="@dimen/smallPadding"
+        android:textSize="@dimen/text"
+        android:hint="@string/description"
+        />
+
+        <Button
+            android:id="@+id/submit_add_word"
+            android:background="@android:color/holo_blue_light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:hint="@string/add"
+            android:textSize="@dimen/bigText"
+            android:layout_alignBottom="@+id/enter_description" />
+    </RelativeLayout>
+
+
+    <ListView
+        android:id="@+id/list_items"
+        android:layout_width="match_parent"
+        android:layout_height="420dp"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="@dimen/bigPadding"
+        android:paddingTop="@dimen/bigPadding"
+        tools:listitem="@layout/item"></ListView>
+
+</LinearLayout>

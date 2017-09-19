@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">А Маня молодец</string>
+
+    <string name="word">Введите качество</string>
+    <string name="count_balls">Баллы</string>
+    <string name="description">Описание</string>
+
+    <string name="add">+</string>
+</resources>
