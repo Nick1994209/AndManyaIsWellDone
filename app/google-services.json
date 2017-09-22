@@ -1,27 +1,35 @@
 {
   "project_info": {
-    "project_number": "808836555468",
-    "firebase_url": "https://andmanyaiswelldone.firebaseio.com",
-    "project_id": "andmanyaiswelldone",
-    "storage_bucket": "andmanyaiswelldone.appspot.com"
+    "project_number": "1069639876206",
+    "firebase_url": "https://andmanyaiswelldone-ca8d8.firebaseio.com",
+    "project_id": "andmanyaiswelldone-ca8d8",
+    "storage_bucket": "andmanyaiswelldone-ca8d8.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:808836555468:android:75c77e10b31964ac",
+        "mobilesdk_app_id": "1:1069639876206:android:75c77e10b31964ac",
         "android_client_info": {
           "package_name": "com.example.nkorolkov.andmanyaiswelldone"
         }
       },
       "oauth_client": [
         {
-          "client_id": "808836555468-skgkgo6istubsjuqgjuaep8rahlaa32m.apps.googleusercontent.com",
+          "client_id": "1069639876206-pq3nlvu8ec75ulgh9d82c678sdp3tap0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.nkorolkov.andmanyaiswelldone",
+            "certificate_hash": "66ca27d99936a1ba0e672b1e75c42a9b2f2b0973"
+          }
+        },
+        {
+          "client_id": "1069639876206-kud243dtgmsed8hu7jggdc38a5snm6gv.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDSIUHLSYTFElyvmxngD2PruXQdJdS3ZEM"
+          "current_key": "AIzaSyAHCbUEWHeDI_7T3LSjPDkeczyqb-7qnnE"
         }
       ],
       "services": {
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1069639876206-kud243dtgmsed8hu7jggdc38a5snm6gv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

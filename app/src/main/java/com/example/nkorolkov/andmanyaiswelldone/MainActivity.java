@@ -20,7 +20,6 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -42,7 +41,7 @@ public class MainActivity extends ActivityWithMenu {
     private ProgressBar mProgressBar;
 
     private Button mSendButton;
-    private EditText mMsgQuality, mMsgDescription;
+    private EditText mMsgEditText;
     private String mUsername;
 
     private GoogleApiClient mGoogleApiClient;
@@ -77,7 +76,7 @@ public class MainActivity extends ActivityWithMenu {
                 mProgressBar.setVisibility(ProgressBar.INVISIBLE);
                 viewHolder.msgTextView.setText(friendlyMessage.getText());
                 viewHolder.userTextView.setText(friendlyMessage.getName());
-                viewHolder.msgDescriptionView.setText(friendlyMessage.getDescription());
+                viewHolder.msgDescriptionView.setText("description me");
                 if (friendlyMessage.getPhotoUrl() == null) {
                     viewHolder.userImageView
                             .setImageDrawable(ContextCompat
@@ -119,7 +118,6 @@ public class MainActivity extends ActivityWithMenu {
 
         public FirechatMsgViewHolder(View v) {
             super(v);
-
             msgTextView = (TextView) itemView.findViewById(R.id.msgTextView);
             msgDescriptionView = (TextView) itemView.findViewById(R.id.msgDescriptionView);
             userTextView = (TextView) itemView.findViewById(R.id.userTextView);
@@ -130,36 +128,31 @@ public class MainActivity extends ActivityWithMenu {
     public void sendMessage(){
         // SEND MESSAGES
         mSendButton = (Button) findViewById(R.id.sendButton);
-        mMsgQuality = (EditText) findViewById(R.id.msgQualityText);
-        mMsgDescription = (EditText) findViewById(R.id.msgDescription);
+        mMsgEditText = (EditText) findViewById(R.id.msgEditText);
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
         mUsername = (mFirebaseUser == null) ? null : mFirebaseUser.getDisplayName();
 
-        if (mUsername == null) {
-            Toast.makeText(this, "Для отправки сообщений нужна авторизация", Toast.LENGTH_SHORT).show();
-            mSendButton.setEnabled(false);
-        }
-        else
-            mSendButton.setEnabled(true);
-
-        Toast.makeText(this, mUsername, Toast.LENGTH_SHORT).show();
+//        if (mUsername == null)
+//            mSendButton.setEnabled(false);
+//        else
+//            mSendButton.setEnabled(true);
+        mSendButton.setEnabled(true);
+        mUsername = "Ivan";
 
         mSendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ChatMessage friendlyMessage = new
-                        ChatMessage(mMsgQuality.getText().toString(),
+                        ChatMessage(mMsgEditText.getText().toString(),
                         mUsername,
                         null,
-                        "description");
-//                        mMsgDescription.getText().toString());
+                        "New description");
 //                        mPhotoUrl);
                 mSimpleFirechatDatabaseReference.child("messages")
                         .push().setValue(friendlyMessage);
-                mMsgQuality.setText("");
-                mMsgDescription.setText("");
+                mMsgEditText.setText("");
             }
         });
     }
