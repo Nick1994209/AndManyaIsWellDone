@@ -10,7 +10,7 @@ public class ChatMessage {
     public ChatMessage() {
     }
 
-    public ChatMessage(String text, String name, String photoUrl, String description) {
+    public ChatMessage(String text, String description, String name, String photoUrl) {
         this.text = text;
         this.name = name;
         this.photoUrl = photoUrl;

@@ -20,6 +20,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -41,8 +42,8 @@ public class MainActivity extends ActivityWithMenu {
     private ProgressBar mProgressBar;
 
     private Button mSendButton;
-    private EditText mMsgEditText;
-    private String mUsername;
+    private EditText mMsgEditText, mMsgDescriptionText;
+    private String mUsername, mAvatar;
 
     private GoogleApiClient mGoogleApiClient;
     private FirebaseAuth mFirebaseAuth;
@@ -53,6 +54,7 @@ public class MainActivity extends ActivityWithMenu {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+//        getWindow().setBackgroundDrawableResource(R.drawable.bg);
         receiveMessages();
         sendMessage();
     }
@@ -76,7 +78,7 @@ public class MainActivity extends ActivityWithMenu {
                 mProgressBar.setVisibility(ProgressBar.INVISIBLE);
                 viewHolder.msgTextView.setText(friendlyMessage.getText());
                 viewHolder.userTextView.setText(friendlyMessage.getName());
-                viewHolder.msgDescriptionView.setText("description me");
+                viewHolder.msgDescriptionView.setText(friendlyMessage.getDescription());
                 if (friendlyMessage.getPhotoUrl() == null) {
                     viewHolder.userImageView
                             .setImageDrawable(ContextCompat
@@ -93,13 +95,27 @@ public class MainActivity extends ActivityWithMenu {
         mFirebaseAdapter.registerAdapterDataObserver(
             new RecyclerView.AdapterDataObserver() {
                 @Override
+//                public void onItemRangeInserted(int positionStart, int itemCount) {
+//                    super.onItemRangeInserted(positionStart, itemCount);
+//                    int chatMessageCount = mFirebaseAdapter.getItemCount();
+//                    int lastVisiblePosition =
+//                            mLinearLayoutManager.findLastCompletelyVisibleItemPosition();
+//                    if (lastVisiblePosition == -1 ||
+//                            (positionStart >= (chatMessageCount - 1) &&
+//                                    lastVisiblePosition == (positionStart - 1))) {
+//                        mMessageRecyclerView.scrollToPosition(positionStart);
+//                    }
+//                }
                 public void onItemRangeInserted(int positionStart, int itemCount) {
                     super.onItemRangeInserted(positionStart, itemCount);
-                    int chatMessageCount = mFirebaseAdapter.getItemCount();
+                    int friendlyMessageCount = mFirebaseAdapter.getItemCount();
                     int lastVisiblePosition =
                             mLinearLayoutManager.findLastCompletelyVisibleItemPosition();
+                    // If the recycler view is initially being loaded or the
+                    // user is at the bottom of the list, scroll to the bottom
+                    // of the list to show the newly added message.
                     if (lastVisiblePosition == -1 ||
-                            (positionStart >= (chatMessageCount - 1) &&
+                            (positionStart >= (friendlyMessageCount - 1) &&
                                     lastVisiblePosition == (positionStart - 1))) {
                         mMessageRecyclerView.scrollToPosition(positionStart);
                     }
@@ -129,30 +145,36 @@ public class MainActivity extends ActivityWithMenu {
         // SEND MESSAGES
         mSendButton = (Button) findViewById(R.id.sendButton);
         mMsgEditText = (EditText) findViewById(R.id.msgEditText);
+        mMsgDescriptionText = (EditText) findViewById(R.id.msgDescriptionText);
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
         mUsername = (mFirebaseUser == null) ? null : mFirebaseUser.getDisplayName();
 
-//        if (mUsername == null)
-//            mSendButton.setEnabled(false);
-//        else
-//            mSendButton.setEnabled(true);
+        if (mUsername == null){
+            Toast.makeText(this, "Вы не авторизованы! Советую войти в систему =)",
+                    Toast.LENGTH_LONG).show();
+            mSendButton.setEnabled(false);
+            return;
+        }
+
         mSendButton.setEnabled(true);
-        mUsername = "Ivan";
+        mAvatar = null;
+        if (mFirebaseUser.getPhotoUrl() != null)
+            mAvatar = mFirebaseUser.getPhotoUrl().toString();
 
         mSendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ChatMessage friendlyMessage = new
-                        ChatMessage(mMsgEditText.getText().toString(),
+                ChatMessage friendlyMessage = new ChatMessage(
+                        mMsgEditText.getText().toString(),
+                        mMsgDescriptionText.getText().toString(),
                         mUsername,
-                        null,
-                        "New description");
-//                        mPhotoUrl);
-                mSimpleFirechatDatabaseReference.child("messages")
-                        .push().setValue(friendlyMessage);
+                        mAvatar
+                );
+                mSimpleFirechatDatabaseReference.child("messages").push().setValue(friendlyMessage);
                 mMsgEditText.setText("");
+                mMsgDescriptionText.setText("");
             }
         });
     }

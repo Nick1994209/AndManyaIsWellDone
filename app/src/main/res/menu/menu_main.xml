@@ -5,11 +5,10 @@
     >
     <item
         android:id="@+id/sign_in"
-        android:title="Account"
+        android:title="Вход"
         app:showAsAction="never"/>
     <item
         android:id="@+id/help"
-        android:title="About"
+        android:title="Дополнительно"
         app:showAsAction="never"/>
-
 </menu>

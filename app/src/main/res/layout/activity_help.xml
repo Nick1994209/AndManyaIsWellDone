@@ -9,26 +9,63 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="20dp"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:paddingTop="70dp"
-            android:text="Who needs this application?"
-            android:textSize="30sp"
-            android:textColor="@android:color/holo_blue_dark"
-            />
+            android:paddingTop="60dp"
+            android:text="Для кого предназначено приложение? "
+            android:textSize="25sp"
+            android:textColor="@android:color/holo_blue_dark" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="70dp"
+            android:gravity="center"
+            android:paddingTop="10dp"
+            android:text="- для Мани и друзей"
+            android:textSize="15sp"  />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingTop="60dp"
+            android:text="Зачем?"
             android:textSize="25sp"
+            android:textColor="@android:color/holo_blue_dark" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingTop="10dp"
+            android:text="- можно добавлять записи и комментировать (возможно в будущем). Рассказывать, как вы провели время с Машей"
+            android:textSize="15sp"  />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="95dp"
+            android:textSize="7sp"
             android:gravity="center"
             android:orientation="vertical"
-            android:text="me" />
+            android:text="Что то не работает? Мне все равно. Проверьте интернет соединение" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="15dp"
+            android:textSize="7sp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:text="Спасибо Symba за рисунок"
+            android:textColor="@android:color/holo_blue_dark"/>
+
     </LinearLayout>
 
 
