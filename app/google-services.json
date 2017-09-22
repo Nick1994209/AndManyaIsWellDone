@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "808836555468",
+    "firebase_url": "https://andmanyaiswelldone.firebaseio.com",
+    "project_id": "andmanyaiswelldone",
+    "storage_bucket": "andmanyaiswelldone.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:808836555468:android:75c77e10b31964ac",
+        "android_client_info": {
+          "package_name": "com.example.nkorolkov.andmanyaiswelldone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "808836555468-skgkgo6istubsjuqgjuaep8rahlaa32m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSIUHLSYTFElyvmxngD2PruXQdJdS3ZEM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
