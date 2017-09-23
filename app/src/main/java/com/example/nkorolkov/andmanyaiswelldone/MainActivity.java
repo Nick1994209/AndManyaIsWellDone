@@ -1,16 +1,9 @@
 package com.example.nkorolkov.andmanyaiswelldone;
 
-import android.content.Context;
-import android.os.PersistableBundle;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -40,8 +33,8 @@ public class MainActivity extends ActivityWithMenu {
     private RecyclerView mMessageRecyclerView;
     private LinearLayoutManager mLinearLayoutManager;
     private ProgressBar mProgressBar;
-
-    private Button mSendButton;
+    private MainActivity that;
+    private Button mSendButton, mScrollButton;
     private EditText mMsgEditText, mMsgDescriptionText;
     private String mUsername, mAvatar;
 
@@ -53,8 +46,7 @@ public class MainActivity extends ActivityWithMenu {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-//        getWindow().setBackgroundDrawableResource(R.drawable.bg);
+        that = this;
         receiveMessages();
         sendMessage();
     }
@@ -63,7 +55,7 @@ public class MainActivity extends ActivityWithMenu {
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
         mMessageRecyclerView = (RecyclerView) findViewById(R.id.messageRecyclerView);
         mLinearLayoutManager = new LinearLayoutManager(this);
-        mLinearLayoutManager.setStackFromEnd(true);
+        mLinearLayoutManager.setStackFromEnd(false);
         mMessageRecyclerView.setLayoutManager(mLinearLayoutManager);
 
         mSimpleFirechatDatabaseReference = FirebaseDatabase.getInstance().getReference();
@@ -75,9 +67,16 @@ public class MainActivity extends ActivityWithMenu {
             @Override
             protected void populateViewHolder(FirechatMsgViewHolder viewHolder,
                                               ChatMessage friendlyMessage, int position) {
+
+                if (friendlyMessage.getDescription().equals(""))
+                    viewHolder.msgDescriptionView.setVisibility(View.GONE);
+                if (friendlyMessage.getText().equals(""))
+                    viewHolder.msgTextView.setVisibility(View.GONE);
+
                 mProgressBar.setVisibility(ProgressBar.INVISIBLE);
-                viewHolder.msgTextView.setText(friendlyMessage.getText());
+
                 viewHolder.userTextView.setText(friendlyMessage.getName());
+                viewHolder.msgTextView.setText(friendlyMessage.getText());
                 viewHolder.msgDescriptionView.setText(friendlyMessage.getDescription());
                 if (friendlyMessage.getPhotoUrl() == null) {
                     viewHolder.userImageView
@@ -92,33 +91,20 @@ public class MainActivity extends ActivityWithMenu {
             }
         };
 
+        mScrollButton = (Button) findViewById(R.id.scrollBtn);
         mFirebaseAdapter.registerAdapterDataObserver(
             new RecyclerView.AdapterDataObserver() {
                 @Override
-//                public void onItemRangeInserted(int positionStart, int itemCount) {
-//                    super.onItemRangeInserted(positionStart, itemCount);
-//                    int chatMessageCount = mFirebaseAdapter.getItemCount();
-//                    int lastVisiblePosition =
-//                            mLinearLayoutManager.findLastCompletelyVisibleItemPosition();
-//                    if (lastVisiblePosition == -1 ||
-//                            (positionStart >= (chatMessageCount - 1) &&
-//                                    lastVisiblePosition == (positionStart - 1))) {
-//                        mMessageRecyclerView.scrollToPosition(positionStart);
-//                    }
-//                }
                 public void onItemRangeInserted(int positionStart, int itemCount) {
                     super.onItemRangeInserted(positionStart, itemCount);
-                    int friendlyMessageCount = mFirebaseAdapter.getItemCount();
-                    int lastVisiblePosition =
+
+                    mScrollButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
                             mLinearLayoutManager.findLastCompletelyVisibleItemPosition();
-                    // If the recycler view is initially being loaded or the
-                    // user is at the bottom of the list, scroll to the bottom
-                    // of the list to show the newly added message.
-                    if (lastVisiblePosition == -1 ||
-                            (positionStart >= (friendlyMessageCount - 1) &&
-                                    lastVisiblePosition == (positionStart - 1))) {
-                        mMessageRecyclerView.scrollToPosition(positionStart);
-                    }
+                            mMessageRecyclerView.scrollToPosition(mFirebaseAdapter.getItemCount()-1);
+                        }
+                    });
                 }
             });
 
@@ -166,6 +152,14 @@ public class MainActivity extends ActivityWithMenu {
         mSendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (mMsgEditText.getText().toString().equals("") &&
+                        mMsgDescriptionText.getText().toString().equals("")) {
+                    Toast.makeText(
+                            that,
+                            "Странно... зачем отправлять пустое сообщение?",
+                            Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 ChatMessage friendlyMessage = new ChatMessage(
                         mMsgEditText.getText().toString(),
                         mMsgDescriptionText.getText().toString(),

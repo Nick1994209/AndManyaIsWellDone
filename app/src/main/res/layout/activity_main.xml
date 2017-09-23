@@ -4,6 +4,8 @@
     android:layout_height="match_parent"
     android:baselineAligned="false"
     android:background="@drawable/bg"
+    android:paddingLeft="13dp"
+    android:paddingRight="13dp"
     >
 
     <LinearLayout
@@ -13,6 +15,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:paddingTop="6dp"
         android:orientation="horizontal">
 
         <EditText
@@ -20,6 +23,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:textColor="#4d0026"
+            android:textSize="14sp"
+            android:background="#ffffb3"
+            android:layout_marginRight="5dp"
+            android:padding="7dp"
+            android:hint="Заголовок"
             android:layout_weight="1" />
 
         <EditText
@@ -27,6 +36,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:textColor="#4d0026"
+            android:hint="Описание"
+            android:textSize="14sp"
+            android:background="#ffffb3"
+            android:padding="7dp"
             android:layout_weight="1" />
 
         <Button
@@ -34,15 +48,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
+            android:background="#800040"
             android:enabled="false"
-            android:text="SEND"/>
+            android:textSize="20sp"
+            android:paddingVertical="5dp"
+            android:text="+"/>
     </LinearLayout>
+
+    <Button
+        android:layout_gravity="right"
+        android:id="@+id/scrollBtn"
+        android:background="@drawable/arrow"
+        android:layout_width="53dp"
+        android:layout_height="27dp" />
 
     <android.support.v7.widget.RecyclerView
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         android:id="@+id/messageRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingBottom="30dp"
         android:layout_above="@+id/linearLayout"/>
 
     <ProgressBar
