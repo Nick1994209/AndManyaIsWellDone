@@ -6,6 +6,9 @@ and syncs qualities in some android phones
 
 #####  (My first android application)
 
+
+![Alt text](https://github.com/Nick1994209/AndManyaIsWellDone/blob/master/Screenshot.png)
+
 android 4.0.3
 
 #### in firebase
